@@ -1,0 +1,22 @@
+model Course {
+  id           String           @id @default(uuid())
+  instructorId String           @map("instructor_id")
+  title        String
+  description  String?          @db.Text
+  category     String?
+  thumbnailUrl String?          @map("thumbnail_url") @db.Text
+  difficulty   CourseDifficulty @default(Beginner)
+  priceType    PriceType        @default(FREE) @map("price_type")
+  price        Decimal?         @db.Decimal(10, 2)
+  status       CourseStatus     @default(DRAFT)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  instructor   User          @relation("CourseInstructor", fields: [instructorId], references: [id])
+  lessons      Lesson[]
+  enrollments  Enrollment[]
+  quizzes      Quiz[]
+  certificates Certificate[]
+
+  @@map("courses")
+}

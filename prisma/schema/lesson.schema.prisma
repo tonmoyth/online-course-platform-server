@@ -1,0 +1,32 @@
+model Lesson {
+  id            String    @id @default(uuid())
+  courseId      String    @map("course_id")
+  title         String
+  content       String?   @db.Text
+  videoUrl      String?   @map("video_url") @db.Text
+  fileUrl       String?   @map("file_url") @db.Text
+  orderIndex    Int       @default(0) @map("order_index")
+  isFreePreview Boolean   @default(false) @map("is_free_preview")
+  isDeleted     Boolean   @default(false)
+  deletedAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  course      Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  completions LessonCompletion[]
+
+  @@map("lessons")
+}
+
+model LessonCompletion {
+  id          String   @id @default(uuid())
+  studentId   String   @map("student_id")
+  lessonId    String   @map("lesson_id")
+  completedAt DateTime @default(now())
+
+  student User   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  lesson  Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, lessonId])
+  @@map("lesson_completions")
+}

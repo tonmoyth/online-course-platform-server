@@ -1,0 +1,54 @@
+enum UsersStatus {
+  PENDING
+  ACTIVE
+  REJECTED
+  SUSPENDED
+}
+
+enum PermissionModules {
+  Courses
+  Lessons
+  Quizzes
+  Users
+  Roles
+  Enrollments
+  Reports
+}
+
+enum CourseDifficulty {
+  Beginner
+  Intermediate
+  Advanced
+}
+
+enum CourseStatus {
+  DRAFT
+  PENDING
+  PUBLISHED
+  REJECTED
+}
+
+enum EnrollmentsStatus {
+  active
+  completed
+  dropped
+}
+
+enum QuizAttemptsStatus {
+  IN_PROGRESS
+  SUBMITTED
+  AUTO_SUBMITTED
+  EXPIRED
+}
+
+enum QuestionOption {
+  A
+  B
+  C
+  D
+}
+
+enum PriceType {
+  FREE
+  PAID
+}
