@@ -33,5 +33,8 @@ export const auth = betterAuth({
                 required: false
             }
         }
+    },
+    emailAndPassword: {
+        enabled: true,
     }
 });

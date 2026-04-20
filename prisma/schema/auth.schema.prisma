@@ -4,6 +4,7 @@ model User {
   email         String
   emailVerified Boolean   @default(false)
   image         String?   @db.Text
+
   roleId       String?     @map("role_id")
   status       UsersStatus @default(PENDING)
   isSuperAdmin Boolean     @default(false) @map("is_superAdmin")

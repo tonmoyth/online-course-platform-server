@@ -9,7 +9,80 @@
 * 🟢 You can import this file directly.
 */
 
+export const UsersStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  REJECTED: 'REJECTED',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type UsersStatus = (typeof UsersStatus)[keyof typeof UsersStatus]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const PermissionModules = {
+  Courses: 'Courses',
+  Lessons: 'Lessons',
+  Quizzes: 'Quizzes',
+  Users: 'Users',
+  Roles: 'Roles',
+  Enrollments: 'Enrollments',
+  Reports: 'Reports'
+} as const
+
+export type PermissionModules = (typeof PermissionModules)[keyof typeof PermissionModules]
+
+
+export const CourseDifficulty = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced'
+} as const
+
+export type CourseDifficulty = (typeof CourseDifficulty)[keyof typeof CourseDifficulty]
+
+
+export const CourseStatus = {
+  DRAFT: 'DRAFT',
+  PENDING: 'PENDING',
+  PUBLISHED: 'PUBLISHED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type CourseStatus = (typeof CourseStatus)[keyof typeof CourseStatus]
+
+
+export const EnrollmentsStatus = {
+  active: 'active',
+  completed: 'completed',
+  dropped: 'dropped'
+} as const
+
+export type EnrollmentsStatus = (typeof EnrollmentsStatus)[keyof typeof EnrollmentsStatus]
+
+
+export const QuizAttemptsStatus = {
+  IN_PROGRESS: 'IN_PROGRESS',
+  SUBMITTED: 'SUBMITTED',
+  AUTO_SUBMITTED: 'AUTO_SUBMITTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type QuizAttemptsStatus = (typeof QuizAttemptsStatus)[keyof typeof QuizAttemptsStatus]
+
+
+export const QuestionOption = {
+  A: 'A',
+  B: 'B',
+  C: 'C',
+  D: 'D'
+} as const
+
+export type QuestionOption = (typeof QuestionOption)[keyof typeof QuestionOption]
+
+
+export const PriceType = {
+  FREE: 'FREE',
+  PAID: 'PAID'
+} as const
+
+export type PriceType = (typeof PriceType)[keyof typeof PriceType]

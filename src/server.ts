@@ -1,10 +1,10 @@
 import app from './app';
-import config from './config';
+import { envVeriables } from './config/envConfig';
 
 async function main() {
   try {
-    app.listen(config.port, () => {
-      console.log(`Example app listening on port <%= config.port %>`);
+    app.listen(envVeriables.PORT, () => {
+      console.log(`Server running on port ${envVeriables.PORT}`);
     });
   } catch (err) {
     console.log(err);
