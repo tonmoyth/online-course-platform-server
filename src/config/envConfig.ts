@@ -8,6 +8,10 @@ interface IEnvReturnType {
     DATABASE_USER: string;
     DATABASE_PASSWORD: string;
     DATABASE_NAME: string;
+    JWT_SECRET_KEY: string;
+    JWT_EXPIRES_IN: string;
+    JWT_REFRESH_SECRET_KEY: string;
+    JWT_REFRESH_EXPIRES_IN: string;
 
 }
 
@@ -21,6 +25,10 @@ const envConfig = (): IEnvReturnType => {
         "DATABASE_USER",
         "DATABASE_PASSWORD",
         "DATABASE_NAME",
+        "JWT_SECRET_KEY",
+        "JWT_EXPIRES_IN",
+        "JWT_REFRESH_SECRET_KEY",
+        "JWT_REFRESH_EXPIRES_IN",
 
     ];
 
@@ -39,6 +47,10 @@ const envConfig = (): IEnvReturnType => {
         DATABASE_USER: process.env.DATABASE_USER!,
         DATABASE_PASSWORD: process.env.DATABASE_PASSWORD!,
         DATABASE_NAME: process.env.DATABASE_NAME!,
+        JWT_SECRET_KEY: process.env.JWT_SECRET_KEY!,
+        JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN!,
+        JWT_REFRESH_SECRET_KEY: process.env.JWT_REFRESH_SECRET_KEY!,
+        JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN!,
     };
 };
 
