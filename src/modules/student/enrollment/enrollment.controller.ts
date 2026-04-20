@@ -17,18 +17,6 @@ const enrollInCourse = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const completeLesson = catchAsync(async (req: Request, res: Response) => {
-    const { lessonId } = req.params;
-    const studentId = req.user?.id as string;
-    const result = await EnrollmentService.completeLesson(studentId, lessonId as string);
-
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: "Lesson completed",
-        data: result,
-    });
-});
 
 const getEnrolledCourses = catchAsync(async (req: Request, res: Response) => {
     const studentId = req.user?.id as string;
@@ -57,7 +45,6 @@ const getCourseLearningDetails = catchAsync(async (req: Request, res: Response) 
 
 export const EnrollmentController = {
     enrollInCourse,
-    completeLesson,
     getEnrolledCourses,
     getCourseLearningDetails,
 };

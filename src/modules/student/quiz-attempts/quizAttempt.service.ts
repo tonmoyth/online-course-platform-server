@@ -158,6 +158,17 @@ const submitAttempt = async (studentId: string, quizId: string, payload: { answe
         return updatedAttempt;
     });
 
+    // Automated Certificate Trigger
+    if (isPassed) {
+        try {
+            const { CertificateService } = await import("../certificate/certificate.service");
+            await CertificateService.generateCertificate(studentId, result.id);
+        } catch (error) {
+            console.error("Failed to generate automated certificate:", error);
+            // We don't throw here to avoid failing the quiz submission if certificate logic fails
+        }
+    }
+
     return result;
 };
 

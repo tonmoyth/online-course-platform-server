@@ -25,11 +25,4 @@ router.get(
     EnrollmentController.getCourseLearningDetails,
 );
 
-router.post(
-    "/lessons/:lessonId/complete",
-    chackAuth("STUDENT"),
-    validateRequest(EnrollmentValidation.completeLessonZodSchema),
-    EnrollmentController.completeLesson,
-);
-
 export const EnrollmentRoutes = router;

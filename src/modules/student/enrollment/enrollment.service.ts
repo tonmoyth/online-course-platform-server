@@ -47,82 +47,6 @@ const enrollInCourse = async (studentId: string, courseId: string) => {
     return result;
 };
 
-const completeLesson = async (studentId: string, lessonId: string) => {
-    const lesson = await prisma.lesson.findUnique({
-        where: { id: lessonId },
-        include: { course: true },
-    });
-
-    if (!lesson) {
-        throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
-    }
-
-    // Verify enrollment
-    const enrollment = await prisma.enrollment.findUnique({
-        where: {
-            studentId_courseId: {
-                studentId,
-                courseId: lesson.courseId,
-            },
-        },
-    });
-
-    if (!enrollment) {
-        throw new AppError(httpStatus.FORBIDDEN, "You must be enrolled in the course to complete this lesson");
-    }
-
-    // Check if already completed
-    const existingCompletion = await prisma.lessonCompletion.findUnique({
-        where: {
-            studentId_lessonId: {
-                studentId,
-                lessonId,
-            },
-        },
-    });
-
-    if (existingCompletion) {
-        throw new AppError(httpStatus.CONFLICT, "Lesson already marked as complete");
-    }
-
-    // Transaction: Create completion and update progress
-    const result = await prisma.$transaction(async (tx) => {
-        await tx.lessonCompletion.create({
-            data: {
-                studentId,
-                lessonId,
-            },
-        });
-
-        // Calculate progress
-        const totalLessons = await tx.lesson.count({
-            where: {
-                courseId: lesson.courseId,
-                isDeleted: false,
-            },
-        });
-
-        const completedLessons = await tx.lessonCompletion.count({
-            where: {
-                studentId,
-                lesson: {
-                    courseId: lesson.courseId,
-                },
-            },
-        });
-
-        const progressPercent = Math.round((completedLessons / totalLessons) * 100);
-
-        const updatedEnrollment = await tx.enrollment.update({
-            where: { id: enrollment.id },
-            data: { progressPercent },
-        });
-
-        return updatedEnrollment;
-    });
-
-    return result;
-};
 
 const getEnrolledCourses = async (studentId: string) => {
     const result = await prisma.enrollment.findMany({
@@ -200,7 +124,6 @@ const getCourseLearningDetails = async (studentId: string, courseId: string) => 
 
 export const EnrollmentService = {
     enrollInCourse,
-    completeLesson,
     getEnrolledCourses,
     getCourseLearningDetails,
 };
