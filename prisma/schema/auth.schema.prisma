@@ -1,17 +1,17 @@
 model User {
-  id            String    @id
-  name          String    @db.Text
+  id            String  @id
+  name          String  @db.Text
   email         String
-  emailVerified Boolean   @default(false)
-  image         String?   @db.Text
+  emailVerified Boolean @default(false)
+  image         String? @db.Text
 
   roleId       String?     @map("role_id")
   status       UsersStatus @default(PENDING)
   isSuperAdmin Boolean     @default(false) @map("is_superAdmin")
   isDeleted    Boolean     @default(false)
   deletedAt    DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 
   // Relations
   role              Role?              @relation(fields: [roleId], references: [id])
@@ -22,6 +22,7 @@ model User {
   certificates      Certificate[]
   sessions          Session[]
   accounts          Account[]
+  remarks           UserRemark[]
 
   @@unique([email])
   @@map("user")

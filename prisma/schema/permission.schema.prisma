@@ -1,14 +1,15 @@
 model Permission {
-  id        String            @id @default(uuid())
-  roleId    String            @map("role_id")
-  modules   PermissionModules
-  canView   Boolean           @default(false) @map("can_view")
-  canCreate Boolean           @default(false) @map("can_create")
-  canEdit   Boolean           @default(false) @map("can_edit")
-  canDelete Boolean           @default(false) @map("can_delete")
-  updatedAt DateTime          @updatedAt
+  id      String            @id @default(uuid())
+  modules PermissionModules
 
-  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  canView   Boolean @default(false)
+  canCreate Boolean @default(false)
+  canEdit   Boolean @default(false)
+  canDelete Boolean @default(false)
+
+  rolePermissions RolePermission[]
+
+  updatedAt DateTime @updatedAt
 
   @@map("permissions")
 }

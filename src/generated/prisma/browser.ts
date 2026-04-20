@@ -88,7 +88,17 @@ export type QuizAttempt = Prisma.QuizAttemptModel
  */
 export type AttemptAnswer = Prisma.AttemptAnswerModel
 /**
+ * Model UserRemark
+ * 
+ */
+export type UserRemark = Prisma.UserRemarkModel
+/**
  * Model Role
  * 
  */
 export type Role = Prisma.RoleModel
+/**
+ * Model RolePermission
+ * 
+ */
+export type RolePermission = Prisma.RolePermissionModel

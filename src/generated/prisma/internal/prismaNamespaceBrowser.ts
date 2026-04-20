@@ -65,7 +65,9 @@ export const ModelName = {
   Question: 'Question',
   QuizAttempt: 'QuizAttempt',
   AttemptAnswer: 'AttemptAnswer',
-  Role: 'Role'
+  UserRemark: 'UserRemark',
+  Role: 'Role',
+  RolePermission: 'RolePermission'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -221,7 +223,6 @@ export type LessonCompletionScalarFieldEnum = (typeof LessonCompletionScalarFiel
 
 export const PermissionScalarFieldEnum = {
   id: 'id',
-  roleId: 'roleId',
   modules: 'modules',
   canView: 'canView',
   canCreate: 'canCreate',
@@ -288,6 +289,16 @@ export const AttemptAnswerScalarFieldEnum = {
 export type AttemptAnswerScalarFieldEnum = (typeof AttemptAnswerScalarFieldEnum)[keyof typeof AttemptAnswerScalarFieldEnum]
 
 
+export const UserRemarkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  remark: 'remark',
+  createdAt: 'createdAt'
+} as const
+
+export type UserRemarkScalarFieldEnum = (typeof UserRemarkScalarFieldEnum)[keyof typeof UserRemarkScalarFieldEnum]
+
+
 export const RoleScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -299,6 +310,14 @@ export const RoleScalarFieldEnum = {
 } as const
 
 export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
+
+
+export const RolePermissionScalarFieldEnum = {
+  roleId: 'roleId',
+  permissionId: 'permissionId'
+} as const
+
+export type RolePermissionScalarFieldEnum = (typeof RolePermissionScalarFieldEnum)[keyof typeof RolePermissionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -417,8 +436,7 @@ export type LessonCompletionOrderByRelevanceFieldEnum = (typeof LessonCompletion
 
 
 export const PermissionOrderByRelevanceFieldEnum = {
-  id: 'id',
-  roleId: 'roleId'
+  id: 'id'
 } as const
 
 export type PermissionOrderByRelevanceFieldEnum = (typeof PermissionOrderByRelevanceFieldEnum)[keyof typeof PermissionOrderByRelevanceFieldEnum]
@@ -464,6 +482,15 @@ export const AttemptAnswerOrderByRelevanceFieldEnum = {
 export type AttemptAnswerOrderByRelevanceFieldEnum = (typeof AttemptAnswerOrderByRelevanceFieldEnum)[keyof typeof AttemptAnswerOrderByRelevanceFieldEnum]
 
 
+export const UserRemarkOrderByRelevanceFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  remark: 'remark'
+} as const
+
+export type UserRemarkOrderByRelevanceFieldEnum = (typeof UserRemarkOrderByRelevanceFieldEnum)[keyof typeof UserRemarkOrderByRelevanceFieldEnum]
+
+
 export const RoleOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
@@ -471,4 +498,12 @@ export const RoleOrderByRelevanceFieldEnum = {
 } as const
 
 export type RoleOrderByRelevanceFieldEnum = (typeof RoleOrderByRelevanceFieldEnum)[keyof typeof RoleOrderByRelevanceFieldEnum]
+
+
+export const RolePermissionOrderByRelevanceFieldEnum = {
+  roleId: 'roleId',
+  permissionId: 'permissionId'
+} as const
+
+export type RolePermissionOrderByRelevanceFieldEnum = (typeof RolePermissionOrderByRelevanceFieldEnum)[keyof typeof RolePermissionOrderByRelevanceFieldEnum]
 

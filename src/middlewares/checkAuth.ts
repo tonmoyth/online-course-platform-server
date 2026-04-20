@@ -1,0 +1,114 @@
+import { NextFunction, Request, Response } from "express";
+import { prisma } from "../lib/prisma";
+import { cookieUtil } from "../utils/cookie";
+import AppError from "../errors/appError";
+import { Role } from "../generated/prisma/client";
+import { envVeriables } from "../config/envConfig";
+import { jwtUtils } from "../utils/jwtUtils";
+
+
+
+const chackAuth = (...roles: Role["name"][]) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
+
+        try {
+            const session = cookieUtil.getCookie(req, "better-auth.session_token");
+            console.log(session);
+
+            if (!session) {
+                throw new AppError(
+                    401,
+                    "Unauthorized, please login to access this resource",
+                );
+            }
+
+            const isExistUser = await prisma.session.findFirst({
+                where: {
+                    token: session,
+                },
+                include: {
+                    user: true,
+                },
+            });
+
+            if (!isExistUser || !isExistUser.user) {
+                throw new AppError(
+                    401,
+                    "Unauthorized, please login to access this resource",
+                );
+            }
+
+            if (isExistUser.user.isDeleted) {
+                throw new AppError(
+                    403,
+                    "Forbidden, your account is blocked or deleted, please contact support",
+                );
+            }
+
+            if (isExistUser.user.status !== "ACTIVE") {
+                throw new AppError(
+                    403,
+                    "Forbidden, your account is not active, please contact support",
+                );
+            }
+
+            const findRole = await prisma.role.findFirst({
+                where: {
+                    id: isExistUser.user.roleId as string,
+                },
+            });
+
+            if (!findRole) {
+                throw new AppError(
+                    404,
+                    "Role not found",
+                );
+            }
+
+            if (roles.length > 0 && !roles.includes(findRole.name as string)) {
+                throw new AppError(
+                    403,
+                    "Forbidden, you don't have permission to access this resource",
+                );
+            }
+
+            const accessToken = cookieUtil.getCookie(req, "accessToken");
+
+            if (!accessToken) {
+                throw new AppError(
+                    401,
+                    "Unauthorized, please login to access this resource",
+                );
+            }
+
+            const jwtSecret = envVeriables.JWT_SECRET_KEY;
+            if (!jwtSecret) {
+                throw new AppError(
+                    500,
+                    "Server misconfiguration: JWT secret is missing",
+                );
+            }
+
+            const isValidAccessToken = jwtUtils.verifyToken(accessToken, jwtSecret);
+
+            if (!isValidAccessToken) {
+                throw new AppError(
+                    401,
+                    "Unauthorized, please login to access this resource",
+                );
+            }
+
+            req.user = {
+                id: isExistUser.user.id,
+                email: isExistUser.user.email,
+                role: findRole.name as string,
+            };
+
+            next();
+        } catch (error) {
+            next(error);
+        }
+    };
+};
+
+export default chackAuth;

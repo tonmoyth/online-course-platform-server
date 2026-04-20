@@ -23,7 +23,7 @@ const createAdmin = async () => {
                 name: "Nurislam hasan Tonmoy",
                 email: "tonmoynht1930@gmail.com",
                 password: "[PASSWORD]",
-                roleId: "8c08d424-d314-4918-a7f0-68ed7edd2010",
+                roleId: "c0f73fa9-6d8f-4552-894a-405379c2986e",
                 isSuperAdmin: true,
                 status: "ACTIVE",
                 isDeleted: false,

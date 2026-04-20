@@ -1,14 +1,12 @@
 model Role {
   id          String    @id @default(uuid())
   name        String
-  description String?   @db.Text
+  description String?
   isDeleted   Boolean   @default(false)
   deletedAt   DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  users       User[]
-  permissions Permission[]
-
-  @@map("roles")
+  users           User[]
+  rolePermissions RolePermission[]
 }

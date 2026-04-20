@@ -144,12 +144,11 @@ CREATE TABLE `lesson_completions` (
 -- CreateTable
 CREATE TABLE `permissions` (
     `id` VARCHAR(191) NOT NULL,
-    `role_id` VARCHAR(191) NOT NULL,
     `modules` ENUM('Courses', 'Lessons', 'Quizzes', 'Users', 'Roles', 'Enrollments', 'Reports') NOT NULL,
-    `can_view` BOOLEAN NOT NULL DEFAULT false,
-    `can_create` BOOLEAN NOT NULL DEFAULT false,
-    `can_edit` BOOLEAN NOT NULL DEFAULT false,
-    `can_delete` BOOLEAN NOT NULL DEFAULT false,
+    `canView` BOOLEAN NOT NULL DEFAULT false,
+    `canCreate` BOOLEAN NOT NULL DEFAULT false,
+    `canEdit` BOOLEAN NOT NULL DEFAULT false,
+    `canDelete` BOOLEAN NOT NULL DEFAULT false,
     `updatedAt` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -212,10 +211,20 @@ CREATE TABLE `attempt_answers` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `roles` (
+CREATE TABLE `user_remarks` (
+    `id` VARCHAR(191) NOT NULL,
+    `userId` VARCHAR(191) NOT NULL,
+    `remark` TEXT NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Role` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `description` TEXT NULL,
+    `description` VARCHAR(191) NULL,
     `isDeleted` BOOLEAN NOT NULL DEFAULT false,
     `deletedAt` DATETIME(3) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -224,8 +233,16 @@ CREATE TABLE `roles` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `RolePermission` (
+    `roleId` VARCHAR(191) NOT NULL,
+    `permissionId` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`roleId`, `permissionId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
-ALTER TABLE `user` ADD CONSTRAINT `user_role_id_fkey` FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `user` ADD CONSTRAINT `user_role_id_fkey` FOREIGN KEY (`role_id`) REFERENCES `Role`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `session` ADD CONSTRAINT `session_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -261,9 +278,6 @@ ALTER TABLE `lesson_completions` ADD CONSTRAINT `lesson_completions_student_id_f
 ALTER TABLE `lesson_completions` ADD CONSTRAINT `lesson_completions_lesson_id_fkey` FOREIGN KEY (`lesson_id`) REFERENCES `lessons`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `permissions` ADD CONSTRAINT `permissions_role_id_fkey` FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE `quizzes` ADD CONSTRAINT `quizzes_course_id_fkey` FOREIGN KEY (`course_id`) REFERENCES `courses`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -280,3 +294,12 @@ ALTER TABLE `attempt_answers` ADD CONSTRAINT `attempt_answers_attempt_id_fkey` F
 
 -- AddForeignKey
 ALTER TABLE `attempt_answers` ADD CONSTRAINT `attempt_answers_question_id_fkey` FOREIGN KEY (`question_id`) REFERENCES `questions`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `user_remarks` ADD CONSTRAINT `user_remarks_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `RolePermission` ADD CONSTRAINT `RolePermission_roleId_fkey` FOREIGN KEY (`roleId`) REFERENCES `Role`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `RolePermission` ADD CONSTRAINT `RolePermission_permissionId_fkey` FOREIGN KEY (`permissionId`) REFERENCES `permissions`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
