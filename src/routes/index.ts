@@ -10,6 +10,7 @@ import { EnrollmentRoutes } from "../modules/student/enrollment/enrollment.route
 import { StudentQuizAttemptRoutes } from "../modules/student/quiz-attempts/quizAttempt.route";
 import { LessonCompletionRoutes } from "../modules/student/lesson-comlete/lessonCompletion.route";
 import { StudentCertificateRoutes } from "../modules/student/certificate/certificate.route";
+import { DashboardStatsRoutes } from "../modules/stats/stats.route";
 
 const router = Router();
 
@@ -30,5 +31,6 @@ router.use('/student', EnrollmentRoutes)
 router.use('/student', StudentQuizAttemptRoutes)
 router.use('/student/lessons', LessonCompletionRoutes)
 router.use('/student/certificates', StudentCertificateRoutes)
+router.use('/dashboard', DashboardStatsRoutes)
 
 export default router;

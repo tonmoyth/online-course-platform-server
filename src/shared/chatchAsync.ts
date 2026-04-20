@@ -7,7 +7,7 @@ export const catchAsync = (fn: RequestHandler) => {
         try {
             await fn(req, res, next);
         } catch (error: any) {
-            console.error("Error in catchAsync:", error.message);
+            console.error("Error in catchAsync:", error);
 
             if (error instanceof AppError) {
                 return res.status(error.statusCode).json({
