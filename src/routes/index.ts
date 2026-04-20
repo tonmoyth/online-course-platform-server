@@ -3,6 +3,7 @@ import { authRoutes } from "../modules/auth/auth.route";
 import { AdminRoutes } from "../modules/admin/admin.route";
 import { InstructorCourseRoutes } from "../modules/instructor/course-management/course.route";
 import { InstructorLessonRoutes } from "../modules/instructor/lesson-management/lesson.route";
+import { InstructorQuizRoutes } from "../modules/instructor/quiz-management/quiz.route";
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use('/admin', AdminRoutes)
 // instructor routes
 router.use('/instructor/courses', InstructorCourseRoutes)
 router.use('/instructor', InstructorLessonRoutes)
+router.use('/instructor', InstructorQuizRoutes)
 
 export default router;
