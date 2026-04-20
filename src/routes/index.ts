@@ -6,6 +6,7 @@ import { InstructorLessonRoutes } from "../modules/instructor/lesson-management/
 import { InstructorQuizRoutes } from "../modules/instructor/quiz-management/quiz.route";
 import { CourseDiscoveryRoutes } from "../modules/student/course-discovery/course.route";
 import { EnrollmentRoutes } from "../modules/student/enrollment/enrollment.route";
+import { StudentQuizAttemptRoutes } from "../modules/student/quiz-attempts/quizAttempt.route";
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use('/instructor', InstructorQuizRoutes)
 // student routes
 router.use('/courses', CourseDiscoveryRoutes)
 router.use('/student', EnrollmentRoutes)
+router.use('/student', StudentQuizAttemptRoutes)
 
 export default router;
