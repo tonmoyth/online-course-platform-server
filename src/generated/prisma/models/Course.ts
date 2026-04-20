@@ -47,6 +47,8 @@ export type CourseMinAggregateOutputType = {
   status: $Enums.CourseStatus | null
   createdAt: Date | null
   updatedAt: Date | null
+  isDeleted: boolean | null
+  deletedAt: Date | null
 }
 
 export type CourseMaxAggregateOutputType = {
@@ -62,6 +64,8 @@ export type CourseMaxAggregateOutputType = {
   status: $Enums.CourseStatus | null
   createdAt: Date | null
   updatedAt: Date | null
+  isDeleted: boolean | null
+  deletedAt: Date | null
 }
 
 export type CourseCountAggregateOutputType = {
@@ -77,6 +81,8 @@ export type CourseCountAggregateOutputType = {
   status: number
   createdAt: number
   updatedAt: number
+  isDeleted: number
+  deletedAt: number
   _all: number
 }
 
@@ -102,6 +108,8 @@ export type CourseMinAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  isDeleted?: true
+  deletedAt?: true
 }
 
 export type CourseMaxAggregateInputType = {
@@ -117,6 +125,8 @@ export type CourseMaxAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  isDeleted?: true
+  deletedAt?: true
 }
 
 export type CourseCountAggregateInputType = {
@@ -132,6 +142,8 @@ export type CourseCountAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  isDeleted?: true
+  deletedAt?: true
   _all?: true
 }
 
@@ -234,6 +246,8 @@ export type CourseGroupByOutputType = {
   status: $Enums.CourseStatus
   createdAt: Date
   updatedAt: Date
+  isDeleted: boolean
+  deletedAt: Date | null
   _count: CourseCountAggregateOutputType | null
   _avg: CourseAvgAggregateOutputType | null
   _sum: CourseSumAggregateOutputType | null
@@ -272,6 +286,8 @@ export type CourseWhereInput = {
   status?: Prisma.EnumCourseStatusFilter<"Course"> | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
+  isDeleted?: Prisma.BoolFilter<"Course"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
   instructor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   lessons?: Prisma.LessonListRelationFilter
   enrollments?: Prisma.EnrollmentListRelationFilter
@@ -292,6 +308,8 @@ export type CourseOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   instructor?: Prisma.UserOrderByWithRelationInput
   lessons?: Prisma.LessonOrderByRelationAggregateInput
   enrollments?: Prisma.EnrollmentOrderByRelationAggregateInput
@@ -316,6 +334,8 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumCourseStatusFilter<"Course"> | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
+  isDeleted?: Prisma.BoolFilter<"Course"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
   instructor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   lessons?: Prisma.LessonListRelationFilter
   enrollments?: Prisma.EnrollmentListRelationFilter
@@ -336,6 +356,8 @@ export type CourseOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CourseCountOrderByAggregateInput
   _avg?: Prisma.CourseAvgOrderByAggregateInput
   _max?: Prisma.CourseMaxOrderByAggregateInput
@@ -359,6 +381,8 @@ export type CourseScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumCourseStatusWithAggregatesFilter<"Course"> | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Course"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Course"> | Date | string
+  isDeleted?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Course"> | Date | string | null
 }
 
 export type CourseCreateInput = {
@@ -373,6 +397,8 @@ export type CourseCreateInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   instructor: Prisma.UserCreateNestedOneWithoutCoursesInput
   lessons?: Prisma.LessonCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
@@ -393,6 +419,8 @@ export type CourseUncheckedCreateInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutCourseInput
@@ -411,6 +439,8 @@ export type CourseUpdateInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   instructor?: Prisma.UserUpdateOneRequiredWithoutCoursesNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
@@ -431,6 +461,8 @@ export type CourseUncheckedUpdateInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutCourseNestedInput
@@ -450,6 +482,8 @@ export type CourseCreateManyInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
 }
 
 export type CourseUpdateManyMutationInput = {
@@ -464,6 +498,8 @@ export type CourseUpdateManyMutationInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CourseUncheckedUpdateManyInput = {
@@ -479,6 +515,8 @@ export type CourseUncheckedUpdateManyInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CourseListRelationFilter = {
@@ -515,6 +553,8 @@ export type CourseCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type CourseAvgOrderByAggregateInput = {
@@ -534,6 +574,8 @@ export type CourseMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type CourseMinOrderByAggregateInput = {
@@ -549,6 +591,8 @@ export type CourseMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
 }
 
 export type CourseSumOrderByAggregateInput = {
@@ -685,6 +729,8 @@ export type CourseCreateWithoutInstructorInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   lessons?: Prisma.LessonCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
   quizzes?: Prisma.QuizCreateNestedManyWithoutCourseInput
@@ -703,6 +749,8 @@ export type CourseUncheckedCreateWithoutInstructorInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutCourseInput
@@ -751,6 +799,8 @@ export type CourseScalarWhereInput = {
   status?: Prisma.EnumCourseStatusFilter<"Course"> | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
+  isDeleted?: Prisma.BoolFilter<"Course"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Course"> | Date | string | null
 }
 
 export type CourseCreateWithoutCertificatesInput = {
@@ -765,6 +815,8 @@ export type CourseCreateWithoutCertificatesInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   instructor: Prisma.UserCreateNestedOneWithoutCoursesInput
   lessons?: Prisma.LessonCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
@@ -784,6 +836,8 @@ export type CourseUncheckedCreateWithoutCertificatesInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutCourseInput
@@ -817,6 +871,8 @@ export type CourseUpdateWithoutCertificatesInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   instructor?: Prisma.UserUpdateOneRequiredWithoutCoursesNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
@@ -836,6 +892,8 @@ export type CourseUncheckedUpdateWithoutCertificatesInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutCourseNestedInput
@@ -853,6 +911,8 @@ export type CourseCreateWithoutEnrollmentsInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   instructor: Prisma.UserCreateNestedOneWithoutCoursesInput
   lessons?: Prisma.LessonCreateNestedManyWithoutCourseInput
   quizzes?: Prisma.QuizCreateNestedManyWithoutCourseInput
@@ -872,6 +932,8 @@ export type CourseUncheckedCreateWithoutEnrollmentsInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCourseInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutCourseInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutCourseInput
@@ -905,6 +967,8 @@ export type CourseUpdateWithoutEnrollmentsInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   instructor?: Prisma.UserUpdateOneRequiredWithoutCoursesNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutCourseNestedInput
   quizzes?: Prisma.QuizUpdateManyWithoutCourseNestedInput
@@ -924,6 +988,8 @@ export type CourseUncheckedUpdateWithoutEnrollmentsInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutCourseNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutCourseNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutCourseNestedInput
@@ -941,6 +1007,8 @@ export type CourseCreateWithoutLessonsInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   instructor: Prisma.UserCreateNestedOneWithoutCoursesInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
   quizzes?: Prisma.QuizCreateNestedManyWithoutCourseInput
@@ -960,6 +1028,8 @@ export type CourseUncheckedCreateWithoutLessonsInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
   quizzes?: Prisma.QuizUncheckedCreateNestedManyWithoutCourseInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutCourseInput
@@ -993,6 +1063,8 @@ export type CourseUpdateWithoutLessonsInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   instructor?: Prisma.UserUpdateOneRequiredWithoutCoursesNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
   quizzes?: Prisma.QuizUpdateManyWithoutCourseNestedInput
@@ -1012,6 +1084,8 @@ export type CourseUncheckedUpdateWithoutLessonsInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutCourseNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutCourseNestedInput
@@ -1029,6 +1103,8 @@ export type CourseCreateWithoutQuizzesInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   instructor: Prisma.UserCreateNestedOneWithoutCoursesInput
   lessons?: Prisma.LessonCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutCourseInput
@@ -1048,6 +1124,8 @@ export type CourseUncheckedCreateWithoutQuizzesInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   lessons?: Prisma.LessonUncheckedCreateNestedManyWithoutCourseInput
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutCourseInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutCourseInput
@@ -1081,6 +1159,8 @@ export type CourseUpdateWithoutQuizzesInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   instructor?: Prisma.UserUpdateOneRequiredWithoutCoursesNestedInput
   lessons?: Prisma.LessonUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
@@ -1100,6 +1180,8 @@ export type CourseUncheckedUpdateWithoutQuizzesInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutCourseNestedInput
@@ -1117,6 +1199,8 @@ export type CourseCreateManyInstructorInput = {
   status?: $Enums.CourseStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
 }
 
 export type CourseUpdateWithoutInstructorInput = {
@@ -1131,6 +1215,8 @@ export type CourseUpdateWithoutInstructorInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lessons?: Prisma.LessonUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUpdateManyWithoutCourseNestedInput
   quizzes?: Prisma.QuizUpdateManyWithoutCourseNestedInput
@@ -1149,6 +1235,8 @@ export type CourseUncheckedUpdateWithoutInstructorInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lessons?: Prisma.LessonUncheckedUpdateManyWithoutCourseNestedInput
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutCourseNestedInput
   quizzes?: Prisma.QuizUncheckedUpdateManyWithoutCourseNestedInput
@@ -1167,6 +1255,8 @@ export type CourseUncheckedUpdateManyWithoutInstructorInput = {
   status?: Prisma.EnumCourseStatusFieldUpdateOperationsInput | $Enums.CourseStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1240,6 +1330,8 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   lessons?: boolean | Prisma.Course$lessonsArgs<ExtArgs>
   enrollments?: boolean | Prisma.Course$enrollmentsArgs<ExtArgs>
@@ -1263,9 +1355,11 @@ export type CourseSelectScalar = {
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
 }
 
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "instructorId" | "title" | "description" | "category" | "thumbnailUrl" | "difficulty" | "priceType" | "price" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "instructorId" | "title" | "description" | "category" | "thumbnailUrl" | "difficulty" | "priceType" | "price" | "status" | "createdAt" | "updatedAt" | "isDeleted" | "deletedAt", ExtArgs["result"]["course"]>
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   lessons?: boolean | Prisma.Course$lessonsArgs<ExtArgs>
@@ -1297,6 +1391,8 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     status: $Enums.CourseStatus
     createdAt: Date
     updatedAt: Date
+    isDeleted: boolean
+    deletedAt: Date | null
   }, ExtArgs["result"]["course"]>
   composites: {}
 }
@@ -1683,6 +1779,8 @@ export interface CourseFieldRefs {
   readonly status: Prisma.FieldRef<"Course", 'CourseStatus'>
   readonly createdAt: Prisma.FieldRef<"Course", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Course", 'DateTime'>
+  readonly isDeleted: Prisma.FieldRef<"Course", 'Boolean'>
+  readonly deletedAt: Prisma.FieldRef<"Course", 'DateTime'>
 }
     
 

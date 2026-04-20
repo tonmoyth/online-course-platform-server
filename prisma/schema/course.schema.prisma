@@ -12,6 +12,8 @@ model Course {
   createdAt    DateTime         @default(now())
   updatedAt    DateTime         @updatedAt
 
+  isDeleted    Boolean          @default(false)
+  deletedAt    DateTime?
   instructor   User          @relation("CourseInstructor", fields: [instructorId], references: [id])
   lessons      Lesson[]
   enrollments  Enrollment[]
