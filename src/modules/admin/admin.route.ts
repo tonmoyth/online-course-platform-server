@@ -6,7 +6,13 @@ import { AdminValidation } from "./admin.validation";
 
 const router = Router();
 
-// User Approval System
+// User Management
+router.get(
+    "/users",
+    chackAuth("ADMIN", "SUPER ADMIN"),
+    AdminController.getAllUsers,
+);
+
 router.patch(
     "/users/:id/approve",
     chackAuth("SUPER ADMIN"),

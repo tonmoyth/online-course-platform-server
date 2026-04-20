@@ -2,6 +2,8 @@ import httpStatus from "http-status";
 import { prisma } from "../../lib/prisma";
 import AppError from "../../errors/appError";
 import { PermissionModules } from "../../generated/prisma/client";
+import { QueryBuilder } from "../../utils/quearyBuilder";
+import { userFilterableFields, userSearchableFields } from "./admin.constant";
 
 interface IPermission {
     module: PermissionModules;
@@ -377,6 +379,22 @@ const updateUser = async (userId: string, payload: any) => {
     return result;
 };
 
+const getAllUsers = async (query: Record<string, any>) => {
+    const userQuery = new QueryBuilder(prisma.user, query, {
+        searchableFields: userSearchableFields,
+        filterableFields: userFilterableFields,
+    })
+        .search()
+        .filter()
+        .paginate()
+        .sort()
+        .where({ isDeleted: false })
+        .include({ role: { select: { id: true, name: true } } });
+
+    const result = await userQuery.execute();
+    return result;
+};
+
 export const AdminService = {
     approveUser,
     rejectUser,
@@ -385,4 +403,5 @@ export const AdminService = {
     deleteRole,
     assignRole,
     updateUser,
+    getAllUsers,
 };

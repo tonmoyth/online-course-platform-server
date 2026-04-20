@@ -92,6 +92,18 @@ const updateUser = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getAllUsers = catchAsync(async (req: Request, res: Response) => {
+    const result = await AdminService.getAllUsers(req.query);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Users retrieved successfully",
+        meta: result.meta,
+        data: result.data,
+    });
+});
+
 export const AdminController = {
     approveUser,
     rejectUser,
@@ -100,4 +112,5 @@ export const AdminController = {
     deleteRole,
     assignRole,
     updateUser,
+    getAllUsers,
 };
