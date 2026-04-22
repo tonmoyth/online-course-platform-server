@@ -27,6 +27,11 @@ router.patch(
 );
 
 // Role & Permission Management
+router.get(
+    "/roles",
+    AdminController.getAllRoles,
+);
+
 router.post(
     "/roles",
     chackAuth("ADMIN", "SUPER ADMIN"),

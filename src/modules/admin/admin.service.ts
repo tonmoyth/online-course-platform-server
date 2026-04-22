@@ -119,32 +119,20 @@ const createRole = async (payload: IRolePayload) => {
             data: {
                 name,
                 description,
+                rolePermissions: {
+                    create: permissions ? permissions.map(perm => ({
+                        permission: {
+                            create: {
+                                modules: perm.module,
+                                canView: perm.canView,
+                                canCreate: perm.canCreate,
+                                canEdit: perm.canEdit,
+                                canDelete: perm.canDelete,
+                            }
+                        }
+                    })) : []
+                }
             },
-        });
-
-        if (permissions && permissions.length > 0) {
-            for (const perm of permissions) {
-                const newPermission = await tx.permission.create({
-                    data: {
-                        modules: perm.module,
-                        canView: perm.canView,
-                        canCreate: perm.canCreate,
-                        canEdit: perm.canEdit,
-                        canDelete: perm.canDelete,
-                    },
-                });
-
-                await tx.rolePermission.create({
-                    data: {
-                        roleId: newRole.id,
-                        permissionId: newPermission.id,
-                    },
-                });
-            }
-        }
-
-        return await tx.role.findUnique({
-            where: { id: newRole.id },
             include: {
                 rolePermissions: {
                     include: {
@@ -153,6 +141,10 @@ const createRole = async (payload: IRolePayload) => {
                 },
             },
         });
+
+        return newRole;
+    }, {
+        timeout: 10000, // Increase timeout just in case it's a slow DB connection
     });
 
     return result;
@@ -275,6 +267,21 @@ const deleteRole = async (id: string) => {
     return result;
 };
 
+const getAllRoles = async () => {
+    const result = await prisma.role.findMany({
+        where: {
+            isDeleted: false,
+        },
+        select: {
+            id: true,
+            name: true,
+            description: true,
+        },
+    });
+
+    return result;
+};
+
 // User Management
 const assignRole = async (userId: string, roleId: string) => {
     const user = await prisma.user.findUnique({
@@ -380,6 +387,7 @@ const updateUser = async (userId: string, payload: any) => {
 };
 
 const getAllUsers = async (query: Record<string, any>) => {
+    console.log("queary", query)
     const userQuery = new QueryBuilder(prisma.user, query, {
         searchableFields: userSearchableFields,
         filterableFields: userFilterableFields,
@@ -404,4 +412,5 @@ export const AdminService = {
     assignRole,
     updateUser,
     getAllUsers,
+    getAllRoles,
 };

@@ -12,6 +12,7 @@ interface IEnvReturnType {
     JWT_EXPIRES_IN: string;
     JWT_REFRESH_SECRET_KEY: string;
     JWT_REFRESH_EXPIRES_IN: string;
+    FRONTEND_URL: string;
 
 }
 
@@ -29,6 +30,7 @@ const envConfig = (): IEnvReturnType => {
         "JWT_EXPIRES_IN",
         "JWT_REFRESH_SECRET_KEY",
         "JWT_REFRESH_EXPIRES_IN",
+        "FRONTEND_URL",
 
     ];
 
@@ -51,6 +53,7 @@ const envConfig = (): IEnvReturnType => {
         JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN!,
         JWT_REFRESH_SECRET_KEY: process.env.JWT_REFRESH_SECRET_KEY!,
         JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN!,
+        FRONTEND_URL: process.env.FRONTEND_URL!,
     };
 };
 

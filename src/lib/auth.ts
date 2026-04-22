@@ -1,12 +1,16 @@
 import { prisma } from "./prisma";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { envVeriables } from "../config/envConfig";
 
 
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "mysql", // or "mysql", "postgresql", ...etc
     }),
+    baseURL: envVeriables.FRONTEND_URL,
+    secret: envVeriables.BETTER_AUTH_SECRET,
+    trustedOrigins: [envVeriables.FRONTEND_URL!],
     user: {
         additionalFields: {
             roleId: {
@@ -36,5 +40,39 @@ export const auth = betterAuth({
     },
     emailAndPassword: {
         enabled: true,
-    }
+    },
+
+    session: {
+        expiresIn: 24 * 60 * 60,
+        updateAge: 24 * 60 * 60,
+        cookieCache: {
+            enabled: true,
+            maxAge: 24 * 60 * 60,
+        },
+    },
+
+    advanced: {
+        cookies: {
+            session_token: {
+                name: "session_token", // Force this exact name
+                attributes: {
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: "none",
+                    partitioned: true,
+                },
+            },
+            state: {
+                name: "session_token", // Force this exact name
+                attributes: {
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: "none",
+                    partitioned: true,
+                },
+            },
+        },
+    },
+
+    //   plugins: [oAuthProxy()],
 });

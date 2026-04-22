@@ -98,7 +98,49 @@ const login = async (payload: any) => {
     };
 };
 
+const getCurrentUser = async (userId: string) => {
+    const user = await prisma.user.findFirst({
+        where: {
+            id: userId,
+            isDeleted: false,
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            status: true,
+            image: true,
+            createdAt: true,
+            role: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
+        },
+    });
+
+    if (!user) {
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
+    }
+
+    return user;
+};
+
+const logout = async (headers: any) => {
+    try {
+        await auth.api.signOut({
+            headers
+        });
+    } catch (error) {
+        // Ignore if signout fails, we still want to clear cookies
+    }
+    return null;
+};
+
 export const AuthService = {
     register,
-    login
+    login,
+    getCurrentUser,
+    logout,
 };

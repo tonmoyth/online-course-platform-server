@@ -33,6 +33,7 @@ const rejectUser = catchAsync(async (req: Request, res: Response) => {
 // Role & Permission Management
 const createRole = catchAsync(async (req: Request, res: Response) => {
     const result = await AdminService.createRole(req.body);
+    console.log(req.body)
 
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
@@ -66,6 +67,17 @@ const deleteRole = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getAllRoles = catchAsync(async (req: Request, res: Response) => {
+    const result = await AdminService.getAllRoles();
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Roles retrieved successfully",
+        data: result,
+    });
+});
+
 // User Management
 const assignRole = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -93,6 +105,7 @@ const updateUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {
+    console.log("getAllUsers query:", req.query);
     const result = await AdminService.getAllUsers(req.query);
 
     sendResponse(res, {
@@ -113,4 +126,5 @@ export const AdminController = {
     assignRole,
     updateUser,
     getAllUsers,
+    getAllRoles,
 };

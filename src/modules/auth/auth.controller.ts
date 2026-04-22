@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import sendResponse from '../../shared/sendResponse';
 import httpStatus from 'http-status';
 import { tokenUtils } from '../../utils/token';
+import { cookieUtil } from '../../utils/cookie';
 
 const register = catchAsync(async (req: Request, res: Response) => {
     const result = await AuthService.register(req.body);
@@ -35,12 +36,51 @@ const login = catchAsync(async (req: Request, res: Response) => {
         success: true,
         message: "Login successful",
         data: {
-            user
+            user,
+            accessToken,
+            refreshToken,
+            sessionToken
         }
+    });
+});
+
+const getCurrentUser = catchAsync(async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+    const result = await AuthService.getCurrentUser(userId as string);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "User retrieved successfully",
+        data: result,
+    });
+});
+
+const logout = catchAsync(async (req: Request, res: Response) => {
+    await AuthService.logout(req.headers);
+
+    const cookieOptions = {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        path: "/",
+    } as any;
+
+    cookieUtil.clearCookie(res, "accessToken", cookieOptions);
+    cookieUtil.clearCookie(res, "refreshToken", cookieOptions);
+    cookieUtil.clearCookie(res, "sessionToken", cookieOptions);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Logout successful",
+        data: null,
     });
 });
 
 export const AuthController = {
     register,
-    login
+    login,
+    getCurrentUser,
+    logout,
 };

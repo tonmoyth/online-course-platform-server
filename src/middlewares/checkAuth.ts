@@ -11,9 +11,12 @@ import { jwtUtils } from "../utils/jwtUtils";
 const chackAuth = (...roles: Role["name"][]) => {
     return async (req: Request, res: Response, next: NextFunction) => {
 
+
         try {
-            const session = cookieUtil.getCookie(req, "better-auth.session_token");
-            console.log(session);
+            const session = cookieUtil.getCookie(req, "sessionToken") ||
+                cookieUtil.getCookie(req, "__Secure-session_token") ||
+                cookieUtil.getCookie(req, "better-auth.session_token");
+
 
             if (!session) {
                 throw new AppError(

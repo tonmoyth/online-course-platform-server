@@ -49,7 +49,6 @@ export class QueryBuilder<
 
                             const stringFilter: PrismaStringFilter = {
                                 contains: searchTerm,
-                                mode: "insensitive" as const,
                             };
 
                             return {
@@ -62,7 +61,6 @@ export class QueryBuilder<
 
                             const stringFilter: PrismaStringFilter = {
                                 contains: searchTerm,
-                                mode: "insensitive" as const,
                             };
 
                             return {
@@ -79,7 +77,6 @@ export class QueryBuilder<
                     // direct field
                     const stringFilter: PrismaStringFilter = {
                         contains: searchTerm,
-                        mode: "insensitive" as const,
                     };
 
                     return {
