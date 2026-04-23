@@ -6,10 +6,9 @@ import { envVeriables } from "../config/envConfig";
 
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
-        provider: "mysql", // or "mysql", "postgresql", ...etc
+        provider: "postgresql", // or "mysql", "postgresql", ...etc
     }),
     baseURL: envVeriables.FRONTEND_URL,
-    secret: envVeriables.BETTER_AUTH_SECRET,
     trustedOrigins: [envVeriables.FRONTEND_URL!],
     user: {
         additionalFields: {

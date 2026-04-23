@@ -23,6 +23,7 @@ const register = catchAsync(async (req: Request, res: Response) => {
 });
 
 const login = catchAsync(async (req: Request, res: Response) => {
+    console.log("request body", req.body)
     const result = await AuthService.login(req.body);
     const { user, accessToken, refreshToken, sessionToken } = result;
 

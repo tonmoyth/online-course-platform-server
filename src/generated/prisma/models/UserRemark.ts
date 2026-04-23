@@ -183,7 +183,6 @@ export type UserRemarkOrderByWithRelationInput = {
   remark?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
-  _relevance?: Prisma.UserRemarkOrderByRelevanceInput
 }
 
 export type UserRemarkWhereUniqueInput = Prisma.AtLeast<{
@@ -273,12 +272,6 @@ export type UserRemarkListRelationFilter = {
 
 export type UserRemarkOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type UserRemarkOrderByRelevanceInput = {
-  fields: Prisma.UserRemarkOrderByRelevanceFieldEnum | Prisma.UserRemarkOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type UserRemarkCountOrderByAggregateInput = {
@@ -426,7 +419,21 @@ export type UserRemarkSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userRemark"]>
 
+export type UserRemarkSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  userId?: boolean
+  remark?: boolean
+  createdAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["userRemark"]>
 
+export type UserRemarkSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  userId?: boolean
+  remark?: boolean
+  createdAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["userRemark"]>
 
 export type UserRemarkSelectScalar = {
   id?: boolean
@@ -437,6 +444,12 @@ export type UserRemarkSelectScalar = {
 
 export type UserRemarkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "remark" | "createdAt", ExtArgs["result"]["userRemark"]>
 export type UserRemarkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type UserRemarkIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type UserRemarkIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
@@ -568,6 +581,30 @@ export interface UserRemarkDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends UserRemarkCreateManyArgs>(args?: Prisma.SelectSubset<T, UserRemarkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many UserRemarks and returns the data saved in the database.
+   * @param {UserRemarkCreateManyAndReturnArgs} args - Arguments to create many UserRemarks.
+   * @example
+   * // Create many UserRemarks
+   * const userRemark = await prisma.userRemark.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many UserRemarks and only return the `id`
+   * const userRemarkWithIdOnly = await prisma.userRemark.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends UserRemarkCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, UserRemarkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserRemarkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a UserRemark.
    * @param {UserRemarkDeleteArgs} args - Arguments to delete one UserRemark.
    * @example
@@ -630,6 +667,36 @@ export interface UserRemarkDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends UserRemarkUpdateManyArgs>(args: Prisma.SelectSubset<T, UserRemarkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more UserRemarks and returns the data updated in the database.
+   * @param {UserRemarkUpdateManyAndReturnArgs} args - Arguments to update many UserRemarks.
+   * @example
+   * // Update many UserRemarks
+   * const userRemark = await prisma.userRemark.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more UserRemarks and only return the `id`
+   * const userRemarkWithIdOnly = await prisma.userRemark.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends UserRemarkUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, UserRemarkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserRemarkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one UserRemark.
@@ -1062,6 +1129,29 @@ export type UserRemarkCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
+ * UserRemark createManyAndReturn
+ */
+export type UserRemarkCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserRemark
+   */
+  select?: Prisma.UserRemarkSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserRemark
+   */
+  omit?: Prisma.UserRemarkOmit<ExtArgs> | null
+  /**
+   * The data used to create many UserRemarks.
+   */
+  data: Prisma.UserRemarkCreateManyInput | Prisma.UserRemarkCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserRemarkIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * UserRemark update
  */
 export type UserRemarkUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1103,6 +1193,36 @@ export type UserRemarkUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many UserRemarks to update.
    */
   limit?: number
+}
+
+/**
+ * UserRemark updateManyAndReturn
+ */
+export type UserRemarkUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserRemark
+   */
+  select?: Prisma.UserRemarkSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserRemark
+   */
+  omit?: Prisma.UserRemarkOmit<ExtArgs> | null
+  /**
+   * The data used to update UserRemarks.
+   */
+  data: Prisma.XOR<Prisma.UserRemarkUpdateManyMutationInput, Prisma.UserRemarkUncheckedUpdateManyInput>
+  /**
+   * Filter which UserRemarks to update
+   */
+  where?: Prisma.UserRemarkWhereInput
+  /**
+   * Limit how many UserRemarks to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserRemarkIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

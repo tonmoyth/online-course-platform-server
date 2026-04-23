@@ -246,7 +246,6 @@ export type EnrollmentOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   student?: Prisma.UserOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
-  _relevance?: Prisma.EnrollmentOrderByRelevanceInput
 }
 
 export type EnrollmentWhereUniqueInput = Prisma.AtLeast<{
@@ -369,12 +368,6 @@ export type EnrollmentListRelationFilter = {
 
 export type EnrollmentOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type EnrollmentOrderByRelevanceInput = {
-  fields: Prisma.EnrollmentOrderByRelevanceFieldEnum | Prisma.EnrollmentOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type EnrollmentStudentIdCourseIdCompoundUniqueInput = {
@@ -695,7 +688,29 @@ export type EnrollmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["enrollment"]>
 
+export type EnrollmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  studentId?: boolean
+  courseId?: boolean
+  status?: boolean
+  progressPercent?: boolean
+  enrolledAt?: boolean
+  updatedAt?: boolean
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["enrollment"]>
 
+export type EnrollmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  studentId?: boolean
+  courseId?: boolean
+  status?: boolean
+  progressPercent?: boolean
+  enrolledAt?: boolean
+  updatedAt?: boolean
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["enrollment"]>
 
 export type EnrollmentSelectScalar = {
   id?: boolean
@@ -709,6 +724,14 @@ export type EnrollmentSelectScalar = {
 
 export type EnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studentId" | "courseId" | "status" | "progressPercent" | "enrolledAt" | "updatedAt", ExtArgs["result"]["enrollment"]>
 export type EnrollmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+}
+export type EnrollmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+}
+export type EnrollmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }
@@ -845,6 +868,30 @@ export interface EnrollmentDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends EnrollmentCreateManyArgs>(args?: Prisma.SelectSubset<T, EnrollmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Enrollments and returns the data saved in the database.
+   * @param {EnrollmentCreateManyAndReturnArgs} args - Arguments to create many Enrollments.
+   * @example
+   * // Create many Enrollments
+   * const enrollment = await prisma.enrollment.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Enrollments and only return the `id`
+   * const enrollmentWithIdOnly = await prisma.enrollment.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends EnrollmentCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, EnrollmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Enrollment.
    * @param {EnrollmentDeleteArgs} args - Arguments to delete one Enrollment.
    * @example
@@ -907,6 +954,36 @@ export interface EnrollmentDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends EnrollmentUpdateManyArgs>(args: Prisma.SelectSubset<T, EnrollmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Enrollments and returns the data updated in the database.
+   * @param {EnrollmentUpdateManyAndReturnArgs} args - Arguments to update many Enrollments.
+   * @example
+   * // Update many Enrollments
+   * const enrollment = await prisma.enrollment.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Enrollments and only return the `id`
+   * const enrollmentWithIdOnly = await prisma.enrollment.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends EnrollmentUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, EnrollmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Enrollment.
@@ -1343,6 +1420,29 @@ export type EnrollmentCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
+ * Enrollment createManyAndReturn
+ */
+export type EnrollmentCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Enrollment
+   */
+  select?: Prisma.EnrollmentSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Enrollment
+   */
+  omit?: Prisma.EnrollmentOmit<ExtArgs> | null
+  /**
+   * The data used to create many Enrollments.
+   */
+  data: Prisma.EnrollmentCreateManyInput | Prisma.EnrollmentCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EnrollmentIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Enrollment update
  */
 export type EnrollmentUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1384,6 +1484,36 @@ export type EnrollmentUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many Enrollments to update.
    */
   limit?: number
+}
+
+/**
+ * Enrollment updateManyAndReturn
+ */
+export type EnrollmentUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Enrollment
+   */
+  select?: Prisma.EnrollmentSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Enrollment
+   */
+  omit?: Prisma.EnrollmentOmit<ExtArgs> | null
+  /**
+   * The data used to update Enrollments.
+   */
+  data: Prisma.XOR<Prisma.EnrollmentUpdateManyMutationInput, Prisma.EnrollmentUncheckedUpdateManyInput>
+  /**
+   * Filter which Enrollments to update
+   */
+  where?: Prisma.EnrollmentWhereInput
+  /**
+   * Limit how many Enrollments to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EnrollmentIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

@@ -248,7 +248,6 @@ export type CertificateOrderByWithRelationInput = {
   student?: Prisma.UserOrderByWithRelationInput
   course?: Prisma.CourseOrderByWithRelationInput
   attempt?: Prisma.QuizAttemptOrderByWithRelationInput
-  _relevance?: Prisma.CertificateOrderByRelevanceInput
 }
 
 export type CertificateWhereUniqueInput = Prisma.AtLeast<{
@@ -370,12 +369,6 @@ export type CertificateListRelationFilter = {
 
 export type CertificateOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type CertificateOrderByRelevanceInput = {
-  fields: Prisma.CertificateOrderByRelevanceFieldEnum | Prisma.CertificateOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type CertificateCountOrderByAggregateInput = {
@@ -785,7 +778,31 @@ export type CertificateSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["certificate"]>
 
+export type CertificateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  studentId?: boolean
+  courseId?: boolean
+  attemptId?: boolean
+  certificateUrl?: boolean
+  score?: boolean
+  issuedAt?: boolean
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["certificate"]>
 
+export type CertificateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  studentId?: boolean
+  courseId?: boolean
+  attemptId?: boolean
+  certificateUrl?: boolean
+  score?: boolean
+  issuedAt?: boolean
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["certificate"]>
 
 export type CertificateSelectScalar = {
   id?: boolean
@@ -799,6 +816,16 @@ export type CertificateSelectScalar = {
 
 export type CertificateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studentId" | "courseId" | "attemptId" | "certificateUrl" | "score" | "issuedAt", ExtArgs["result"]["certificate"]>
 export type CertificateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
+}
+export type CertificateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
+}
+export type CertificateIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
@@ -937,6 +964,30 @@ export interface CertificateDelegate<ExtArgs extends runtime.Types.Extensions.In
   createMany<T extends CertificateCreateManyArgs>(args?: Prisma.SelectSubset<T, CertificateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Certificates and returns the data saved in the database.
+   * @param {CertificateCreateManyAndReturnArgs} args - Arguments to create many Certificates.
+   * @example
+   * // Create many Certificates
+   * const certificate = await prisma.certificate.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Certificates and only return the `id`
+   * const certificateWithIdOnly = await prisma.certificate.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends CertificateCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CertificateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Certificate.
    * @param {CertificateDeleteArgs} args - Arguments to delete one Certificate.
    * @example
@@ -999,6 +1050,36 @@ export interface CertificateDelegate<ExtArgs extends runtime.Types.Extensions.In
    * 
    */
   updateMany<T extends CertificateUpdateManyArgs>(args: Prisma.SelectSubset<T, CertificateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Certificates and returns the data updated in the database.
+   * @param {CertificateUpdateManyAndReturnArgs} args - Arguments to update many Certificates.
+   * @example
+   * // Update many Certificates
+   * const certificate = await prisma.certificate.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Certificates and only return the `id`
+   * const certificateWithIdOnly = await prisma.certificate.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends CertificateUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CertificateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Certificate.
@@ -1436,6 +1517,29 @@ export type CertificateCreateManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
+ * Certificate createManyAndReturn
+ */
+export type CertificateCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Certificate
+   */
+  select?: Prisma.CertificateSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Certificate
+   */
+  omit?: Prisma.CertificateOmit<ExtArgs> | null
+  /**
+   * The data used to create many Certificates.
+   */
+  data: Prisma.CertificateCreateManyInput | Prisma.CertificateCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CertificateIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Certificate update
  */
 export type CertificateUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1477,6 +1581,36 @@ export type CertificateUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many Certificates to update.
    */
   limit?: number
+}
+
+/**
+ * Certificate updateManyAndReturn
+ */
+export type CertificateUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Certificate
+   */
+  select?: Prisma.CertificateSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Certificate
+   */
+  omit?: Prisma.CertificateOmit<ExtArgs> | null
+  /**
+   * The data used to update Certificates.
+   */
+  data: Prisma.XOR<Prisma.CertificateUpdateManyMutationInput, Prisma.CertificateUncheckedUpdateManyInput>
+  /**
+   * Filter which Certificates to update
+   */
+  where?: Prisma.CertificateWhereInput
+  /**
+   * Limit how many Certificates to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CertificateIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

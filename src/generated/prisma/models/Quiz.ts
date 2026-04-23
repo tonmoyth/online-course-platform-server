@@ -265,7 +265,6 @@ export type QuizOrderByWithRelationInput = {
   course?: Prisma.CourseOrderByWithRelationInput
   questions?: Prisma.QuestionOrderByRelationAggregateInput
   attempts?: Prisma.QuizAttemptOrderByRelationAggregateInput
-  _relevance?: Prisma.QuizOrderByRelevanceInput
 }
 
 export type QuizWhereUniqueInput = Prisma.AtLeast<{
@@ -407,12 +406,6 @@ export type QuizListRelationFilter = {
 
 export type QuizOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type QuizOrderByRelevanceInput = {
-  fields: Prisma.QuizOrderByRelevanceFieldEnum | Prisma.QuizOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type QuizCountOrderByAggregateInput = {
@@ -834,7 +827,29 @@ export type QuizSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   _count?: boolean | Prisma.QuizCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quiz"]>
 
+export type QuizSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  courseId?: boolean
+  title?: boolean
+  timeLimitMinutes?: boolean
+  passingScore?: boolean
+  maxAttempts?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["quiz"]>
 
+export type QuizSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  courseId?: boolean
+  title?: boolean
+  timeLimitMinutes?: boolean
+  passingScore?: boolean
+  maxAttempts?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["quiz"]>
 
 export type QuizSelectScalar = {
   id?: boolean
@@ -853,6 +868,12 @@ export type QuizInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   questions?: boolean | Prisma.Quiz$questionsArgs<ExtArgs>
   attempts?: boolean | Prisma.Quiz$attemptsArgs<ExtArgs>
   _count?: boolean | Prisma.QuizCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type QuizIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+}
+export type QuizIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }
 
 export type $QuizPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -989,6 +1010,30 @@ export interface QuizDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
   createMany<T extends QuizCreateManyArgs>(args?: Prisma.SelectSubset<T, QuizCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Quizzes and returns the data saved in the database.
+   * @param {QuizCreateManyAndReturnArgs} args - Arguments to create many Quizzes.
+   * @example
+   * // Create many Quizzes
+   * const quiz = await prisma.quiz.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Quizzes and only return the `id`
+   * const quizWithIdOnly = await prisma.quiz.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends QuizCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, QuizCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuizPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Quiz.
    * @param {QuizDeleteArgs} args - Arguments to delete one Quiz.
    * @example
@@ -1051,6 +1096,36 @@ export interface QuizDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    * 
    */
   updateMany<T extends QuizUpdateManyArgs>(args: Prisma.SelectSubset<T, QuizUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Quizzes and returns the data updated in the database.
+   * @param {QuizUpdateManyAndReturnArgs} args - Arguments to update many Quizzes.
+   * @example
+   * // Update many Quizzes
+   * const quiz = await prisma.quiz.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Quizzes and only return the `id`
+   * const quizWithIdOnly = await prisma.quiz.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends QuizUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, QuizUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuizPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Quiz.
@@ -1489,6 +1564,29 @@ export type QuizCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * Quiz createManyAndReturn
+ */
+export type QuizCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Quiz
+   */
+  select?: Prisma.QuizSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Quiz
+   */
+  omit?: Prisma.QuizOmit<ExtArgs> | null
+  /**
+   * The data used to create many Quizzes.
+   */
+  data: Prisma.QuizCreateManyInput | Prisma.QuizCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuizIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Quiz update
  */
 export type QuizUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1530,6 +1628,36 @@ export type QuizUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Quizzes to update.
    */
   limit?: number
+}
+
+/**
+ * Quiz updateManyAndReturn
+ */
+export type QuizUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Quiz
+   */
+  select?: Prisma.QuizSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Quiz
+   */
+  omit?: Prisma.QuizOmit<ExtArgs> | null
+  /**
+   * The data used to update Quizzes.
+   */
+  data: Prisma.XOR<Prisma.QuizUpdateManyMutationInput, Prisma.QuizUncheckedUpdateManyInput>
+  /**
+   * Filter which Quizzes to update
+   */
+  where?: Prisma.QuizWhereInput
+  /**
+   * Limit how many Quizzes to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuizIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

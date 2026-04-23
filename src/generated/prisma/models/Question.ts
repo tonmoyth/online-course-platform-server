@@ -273,7 +273,6 @@ export type QuestionOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   quiz?: Prisma.QuizOrderByWithRelationInput
   answers?: Prisma.AttemptAnswerOrderByRelationAggregateInput
-  _relevance?: Prisma.QuestionOrderByRelevanceInput
 }
 
 export type QuestionWhereUniqueInput = Prisma.AtLeast<{
@@ -430,12 +429,6 @@ export type QuestionListRelationFilter = {
 
 export type QuestionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type QuestionOrderByRelevanceInput = {
-  fields: Prisma.QuestionOrderByRelevanceFieldEnum | Prisma.QuestionOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type QuestionCountOrderByAggregateInput = {
@@ -783,7 +776,33 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   _count?: boolean | Prisma.QuestionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["question"]>
 
+export type QuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  quizId?: boolean
+  questionText?: boolean
+  optionA?: boolean
+  optionB?: boolean
+  optionC?: boolean
+  optionD?: boolean
+  correctOption?: boolean
+  orderIndex?: boolean
+  createdAt?: boolean
+  quiz?: boolean | Prisma.QuizDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["question"]>
 
+export type QuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  quizId?: boolean
+  questionText?: boolean
+  optionA?: boolean
+  optionB?: boolean
+  optionC?: boolean
+  optionD?: boolean
+  correctOption?: boolean
+  orderIndex?: boolean
+  createdAt?: boolean
+  quiz?: boolean | Prisma.QuizDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["question"]>
 
 export type QuestionSelectScalar = {
   id?: boolean
@@ -803,6 +822,12 @@ export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   quiz?: boolean | Prisma.QuizDefaultArgs<ExtArgs>
   answers?: boolean | Prisma.Question$answersArgs<ExtArgs>
   _count?: boolean | Prisma.QuestionCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type QuestionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  quiz?: boolean | Prisma.QuizDefaultArgs<ExtArgs>
+}
+export type QuestionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  quiz?: boolean | Prisma.QuizDefaultArgs<ExtArgs>
 }
 
 export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -940,6 +965,30 @@ export interface QuestionDelegate<ExtArgs extends runtime.Types.Extensions.Inter
   createMany<T extends QuestionCreateManyArgs>(args?: Prisma.SelectSubset<T, QuestionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Questions and returns the data saved in the database.
+   * @param {QuestionCreateManyAndReturnArgs} args - Arguments to create many Questions.
+   * @example
+   * // Create many Questions
+   * const question = await prisma.question.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Questions and only return the `id`
+   * const questionWithIdOnly = await prisma.question.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends QuestionCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, QuestionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Question.
    * @param {QuestionDeleteArgs} args - Arguments to delete one Question.
    * @example
@@ -1002,6 +1051,36 @@ export interface QuestionDelegate<ExtArgs extends runtime.Types.Extensions.Inter
    * 
    */
   updateMany<T extends QuestionUpdateManyArgs>(args: Prisma.SelectSubset<T, QuestionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Questions and returns the data updated in the database.
+   * @param {QuestionUpdateManyAndReturnArgs} args - Arguments to update many Questions.
+   * @example
+   * // Update many Questions
+   * const question = await prisma.question.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Questions and only return the `id`
+   * const questionWithIdOnly = await prisma.question.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends QuestionUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, QuestionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Question.
@@ -1441,6 +1520,29 @@ export type QuestionCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * Question createManyAndReturn
+ */
+export type QuestionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Question
+   */
+  select?: Prisma.QuestionSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Question
+   */
+  omit?: Prisma.QuestionOmit<ExtArgs> | null
+  /**
+   * The data used to create many Questions.
+   */
+  data: Prisma.QuestionCreateManyInput | Prisma.QuestionCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Question update
  */
 export type QuestionUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1482,6 +1584,36 @@ export type QuestionUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Questions to update.
    */
   limit?: number
+}
+
+/**
+ * Question updateManyAndReturn
+ */
+export type QuestionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Question
+   */
+  select?: Prisma.QuestionSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Question
+   */
+  omit?: Prisma.QuestionOmit<ExtArgs> | null
+  /**
+   * The data used to update Questions.
+   */
+  data: Prisma.XOR<Prisma.QuestionUpdateManyMutationInput, Prisma.QuestionUncheckedUpdateManyInput>
+  /**
+   * Filter which Questions to update
+   */
+  where?: Prisma.QuestionWhereInput
+  /**
+   * Limit how many Questions to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

@@ -1,15 +1,16 @@
-// import "dotenv/config";
-// import { PrismaPg } from '@prisma/adapter-pg'
-// import { PrismaClient } from "../generated/prisma/client";
+import "dotenv/config";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "../generated/prisma/client";
 
+const connectionString = process.env.DATABASE_URL;
 
+if (!connectionString) {
+    throw new Error("DATABASE_URL is missing in .env");
+}
 
-// const connectionString = process.env.DATABASE_URL
+const adapter = new PrismaPg({ connectionString });
 
-// const adapter = new PrismaPg({ connectionString })
-// const prisma = new PrismaClient({ adapter })
-
-// export { prisma }
+export const prisma = new PrismaClient({ adapter });
 //======================================
 // import "dotenv/config";
 // import { PrismaClient } from "../generated/prisma/client";
@@ -36,21 +37,21 @@
 // export { prisma };
 
 //============================================
-import "dotenv/config";
-import { PrismaClient } from "../generated/prisma/client";
-import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+// import "dotenv/config";
+// import { PrismaClient } from "../generated/prisma/client";
+// import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 
-const adapter = new PrismaMariaDb({
-    host: "mysql-1dc508b4-course-platform.g.aivencloud.com",
-    port: 18580,
-    user: process.env.DATABASE_USER!,
-    password: process.env.DATABASE_PASSWORD!,
-    database: "defaultdb",
-    ssl: {
-        rejectUnauthorized: false, // Aiven এর জন্য important
-    },
-});
+// const adapter = new PrismaMariaDb({
+//     host: "mysql-1dc508b4-course-platform.g.aivencloud.com",
+//     port: 18580,
+//     user: process.env.DATABASE_USER!,
+//     password: process.env.DATABASE_PASSWORD!,
+//     database: "defaultdb",
+//     ssl: {
+//         rejectUnauthorized: false, // Aiven এর জন্য important
+//     },
+// });
 
-const prisma = new PrismaClient({ adapter });
+// const prisma = new PrismaClient({ adapter });
 
-export { prisma };
+// export { prisma };

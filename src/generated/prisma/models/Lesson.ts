@@ -291,7 +291,6 @@ export type LessonOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   course?: Prisma.CourseOrderByWithRelationInput
   completions?: Prisma.LessonCompletionOrderByRelationAggregateInput
-  _relevance?: Prisma.LessonOrderByRelevanceInput
 }
 
 export type LessonWhereUniqueInput = Prisma.AtLeast<{
@@ -468,12 +467,6 @@ export type LessonListRelationFilter = {
 
 export type LessonOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type LessonOrderByRelevanceInput = {
-  fields: Prisma.LessonOrderByRelevanceFieldEnum | Prisma.LessonOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type LessonCountOrderByAggregateInput = {
@@ -847,7 +840,37 @@ export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lesson"]>
 
+export type LessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  courseId?: boolean
+  title?: boolean
+  content?: boolean
+  videoUrl?: boolean
+  fileUrl?: boolean
+  orderIndex?: boolean
+  isFreePreview?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["lesson"]>
 
+export type LessonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  courseId?: boolean
+  title?: boolean
+  content?: boolean
+  videoUrl?: boolean
+  fileUrl?: boolean
+  orderIndex?: boolean
+  isFreePreview?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["lesson"]>
 
 export type LessonSelectScalar = {
   id?: boolean
@@ -869,6 +892,12 @@ export type LessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
   completions?: boolean | Prisma.Lesson$completionsArgs<ExtArgs>
   _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type LessonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+}
+export type LessonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
 }
 
 export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1008,6 +1037,30 @@ export interface LessonDelegate<ExtArgs extends runtime.Types.Extensions.Interna
   createMany<T extends LessonCreateManyArgs>(args?: Prisma.SelectSubset<T, LessonCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Lessons and returns the data saved in the database.
+   * @param {LessonCreateManyAndReturnArgs} args - Arguments to create many Lessons.
+   * @example
+   * // Create many Lessons
+   * const lesson = await prisma.lesson.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Lessons and only return the `id`
+   * const lessonWithIdOnly = await prisma.lesson.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends LessonCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, LessonCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Lesson.
    * @param {LessonDeleteArgs} args - Arguments to delete one Lesson.
    * @example
@@ -1070,6 +1123,36 @@ export interface LessonDelegate<ExtArgs extends runtime.Types.Extensions.Interna
    * 
    */
   updateMany<T extends LessonUpdateManyArgs>(args: Prisma.SelectSubset<T, LessonUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Lessons and returns the data updated in the database.
+   * @param {LessonUpdateManyAndReturnArgs} args - Arguments to update many Lessons.
+   * @example
+   * // Update many Lessons
+   * const lesson = await prisma.lesson.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Lessons and only return the `id`
+   * const lessonWithIdOnly = await prisma.lesson.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends LessonUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, LessonUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Lesson.
@@ -1511,6 +1594,29 @@ export type LessonCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Lesson createManyAndReturn
+ */
+export type LessonCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Lesson
+   */
+  select?: Prisma.LessonSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Lesson
+   */
+  omit?: Prisma.LessonOmit<ExtArgs> | null
+  /**
+   * The data used to create many Lessons.
+   */
+  data: Prisma.LessonCreateManyInput | Prisma.LessonCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LessonIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Lesson update
  */
 export type LessonUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1552,6 +1658,36 @@ export type LessonUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Lessons to update.
    */
   limit?: number
+}
+
+/**
+ * Lesson updateManyAndReturn
+ */
+export type LessonUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Lesson
+   */
+  select?: Prisma.LessonSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Lesson
+   */
+  omit?: Prisma.LessonOmit<ExtArgs> | null
+  /**
+   * The data used to update Lessons.
+   */
+  data: Prisma.XOR<Prisma.LessonUpdateManyMutationInput, Prisma.LessonUncheckedUpdateManyInput>
+  /**
+   * Filter which Lessons to update
+   */
+  where?: Prisma.LessonWhereInput
+  /**
+   * Limit how many Lessons to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LessonIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

@@ -315,7 +315,6 @@ export type CourseOrderByWithRelationInput = {
   enrollments?: Prisma.EnrollmentOrderByRelationAggregateInput
   quizzes?: Prisma.QuizOrderByRelationAggregateInput
   certificates?: Prisma.CertificateOrderByRelationAggregateInput
-  _relevance?: Prisma.CourseOrderByRelevanceInput
 }
 
 export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -532,12 +531,6 @@ export type CourseOrderByRelationAggregateInput = {
 export type CourseScalarRelationFilter = {
   is?: Prisma.CourseWhereInput
   isNot?: Prisma.CourseWhereInput
-}
-
-export type CourseOrderByRelevanceInput = {
-  fields: Prisma.CourseOrderByRelevanceFieldEnum | Prisma.CourseOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type CourseCountOrderByAggregateInput = {
@@ -1340,7 +1333,41 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
+export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  instructorId?: boolean
+  title?: boolean
+  description?: boolean
+  category?: boolean
+  thumbnailUrl?: boolean
+  difficulty?: boolean
+  priceType?: boolean
+  price?: boolean
+  status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
+  instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["course"]>
 
+export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  instructorId?: boolean
+  title?: boolean
+  description?: boolean
+  category?: boolean
+  thumbnailUrl?: boolean
+  difficulty?: boolean
+  priceType?: boolean
+  price?: boolean
+  status?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
+  instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["course"]>
 
 export type CourseSelectScalar = {
   id?: boolean
@@ -1367,6 +1394,12 @@ export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   quizzes?: boolean | Prisma.Course$quizzesArgs<ExtArgs>
   certificates?: boolean | Prisma.Course$certificatesArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type CourseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type CourseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  instructor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1511,6 +1544,30 @@ export interface CourseDelegate<ExtArgs extends runtime.Types.Extensions.Interna
   createMany<T extends CourseCreateManyArgs>(args?: Prisma.SelectSubset<T, CourseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Courses and returns the data saved in the database.
+   * @param {CourseCreateManyAndReturnArgs} args - Arguments to create many Courses.
+   * @example
+   * // Create many Courses
+   * const course = await prisma.course.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Courses and only return the `id`
+   * const courseWithIdOnly = await prisma.course.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends CourseCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CourseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Course.
    * @param {CourseDeleteArgs} args - Arguments to delete one Course.
    * @example
@@ -1573,6 +1630,36 @@ export interface CourseDelegate<ExtArgs extends runtime.Types.Extensions.Interna
    * 
    */
   updateMany<T extends CourseUpdateManyArgs>(args: Prisma.SelectSubset<T, CourseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Courses and returns the data updated in the database.
+   * @param {CourseUpdateManyAndReturnArgs} args - Arguments to update many Courses.
+   * @example
+   * // Update many Courses
+   * const course = await prisma.course.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Courses and only return the `id`
+   * const courseWithIdOnly = await prisma.course.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends CourseUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CourseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Course.
@@ -2019,6 +2106,29 @@ export type CourseCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Course createManyAndReturn
+ */
+export type CourseCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Course
+   */
+  select?: Prisma.CourseSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Course
+   */
+  omit?: Prisma.CourseOmit<ExtArgs> | null
+  /**
+   * The data used to create many Courses.
+   */
+  data: Prisma.CourseCreateManyInput | Prisma.CourseCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Course update
  */
 export type CourseUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2060,6 +2170,36 @@ export type CourseUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Courses to update.
    */
   limit?: number
+}
+
+/**
+ * Course updateManyAndReturn
+ */
+export type CourseUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Course
+   */
+  select?: Prisma.CourseSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Course
+   */
+  omit?: Prisma.CourseOmit<ExtArgs> | null
+  /**
+   * The data used to update Courses.
+   */
+  data: Prisma.XOR<Prisma.CourseUpdateManyMutationInput, Prisma.CourseUncheckedUpdateManyInput>
+  /**
+   * Filter which Courses to update
+   */
+  where?: Prisma.CourseWhereInput
+  /**
+   * Limit how many Courses to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CourseIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

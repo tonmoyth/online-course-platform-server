@@ -5,6 +5,7 @@ import { CourseStatus } from "../../../generated/prisma/client";
 import { QueryBuilder } from "../../../utils/quearyBuilder";
 
 const createCourse = async (instructorId: string, payload: any) => {
+    console.log(payload)
     const result = await prisma.course.create({
         data: {
             ...payload,
@@ -113,9 +114,9 @@ const getMyCourses = async (instructorId: string, query: Record<string, any>) =>
         .filter()
         .paginate()
         .sort()
-        .where({ 
+        .where({
             instructorId,
-            isDeleted: false 
+            isDeleted: false
         });
 
     const result = await courseQuery.execute();
@@ -131,10 +132,10 @@ const getMyDraftCourses = async (instructorId: string, query: Record<string, any
         .filter()
         .paginate()
         .sort()
-        .where({ 
+        .where({
             instructorId,
             status: CourseStatus.DRAFT,
-            isDeleted: false 
+            isDeleted: false
         });
 
     const result = await courseQuery.execute();

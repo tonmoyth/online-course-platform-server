@@ -194,7 +194,6 @@ export type AttemptAnswerOrderByWithRelationInput = {
   isCorrect?: Prisma.SortOrder
   attempt?: Prisma.QuizAttemptOrderByWithRelationInput
   question?: Prisma.QuestionOrderByWithRelationInput
-  _relevance?: Prisma.AttemptAnswerOrderByRelevanceInput
 }
 
 export type AttemptAnswerWhereUniqueInput = Prisma.AtLeast<{
@@ -295,12 +294,6 @@ export type AttemptAnswerListRelationFilter = {
 
 export type AttemptAnswerOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type AttemptAnswerOrderByRelevanceInput = {
-  fields: Prisma.AttemptAnswerOrderByRelevanceFieldEnum | Prisma.AttemptAnswerOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type AttemptAnswerAttemptIdQuestionIdCompoundUniqueInput = {
@@ -575,7 +568,25 @@ export type AttemptAnswerSelect<ExtArgs extends runtime.Types.Extensions.Interna
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attemptAnswer"]>
 
+export type AttemptAnswerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  attemptId?: boolean
+  questionId?: boolean
+  selectedOption?: boolean
+  isCorrect?: boolean
+  attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["attemptAnswer"]>
 
+export type AttemptAnswerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  attemptId?: boolean
+  questionId?: boolean
+  selectedOption?: boolean
+  isCorrect?: boolean
+  attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["attemptAnswer"]>
 
 export type AttemptAnswerSelectScalar = {
   id?: boolean
@@ -587,6 +598,14 @@ export type AttemptAnswerSelectScalar = {
 
 export type AttemptAnswerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "questionId" | "selectedOption" | "isCorrect", ExtArgs["result"]["attemptAnswer"]>
 export type AttemptAnswerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+}
+export type AttemptAnswerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
+  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+}
+export type AttemptAnswerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.QuizAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }
@@ -721,6 +740,30 @@ export interface AttemptAnswerDelegate<ExtArgs extends runtime.Types.Extensions.
   createMany<T extends AttemptAnswerCreateManyArgs>(args?: Prisma.SelectSubset<T, AttemptAnswerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many AttemptAnswers and returns the data saved in the database.
+   * @param {AttemptAnswerCreateManyAndReturnArgs} args - Arguments to create many AttemptAnswers.
+   * @example
+   * // Create many AttemptAnswers
+   * const attemptAnswer = await prisma.attemptAnswer.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many AttemptAnswers and only return the `id`
+   * const attemptAnswerWithIdOnly = await prisma.attemptAnswer.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends AttemptAnswerCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, AttemptAnswerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptAnswerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a AttemptAnswer.
    * @param {AttemptAnswerDeleteArgs} args - Arguments to delete one AttemptAnswer.
    * @example
@@ -783,6 +826,36 @@ export interface AttemptAnswerDelegate<ExtArgs extends runtime.Types.Extensions.
    * 
    */
   updateMany<T extends AttemptAnswerUpdateManyArgs>(args: Prisma.SelectSubset<T, AttemptAnswerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more AttemptAnswers and returns the data updated in the database.
+   * @param {AttemptAnswerUpdateManyAndReturnArgs} args - Arguments to update many AttemptAnswers.
+   * @example
+   * // Update many AttemptAnswers
+   * const attemptAnswer = await prisma.attemptAnswer.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more AttemptAnswers and only return the `id`
+   * const attemptAnswerWithIdOnly = await prisma.attemptAnswer.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends AttemptAnswerUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, AttemptAnswerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptAnswerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one AttemptAnswer.
@@ -1217,6 +1290,29 @@ export type AttemptAnswerCreateManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
+ * AttemptAnswer createManyAndReturn
+ */
+export type AttemptAnswerCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AttemptAnswer
+   */
+  select?: Prisma.AttemptAnswerSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the AttemptAnswer
+   */
+  omit?: Prisma.AttemptAnswerOmit<ExtArgs> | null
+  /**
+   * The data used to create many AttemptAnswers.
+   */
+  data: Prisma.AttemptAnswerCreateManyInput | Prisma.AttemptAnswerCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttemptAnswerIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * AttemptAnswer update
  */
 export type AttemptAnswerUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1258,6 +1354,36 @@ export type AttemptAnswerUpdateManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many AttemptAnswers to update.
    */
   limit?: number
+}
+
+/**
+ * AttemptAnswer updateManyAndReturn
+ */
+export type AttemptAnswerUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AttemptAnswer
+   */
+  select?: Prisma.AttemptAnswerSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the AttemptAnswer
+   */
+  omit?: Prisma.AttemptAnswerOmit<ExtArgs> | null
+  /**
+   * The data used to update AttemptAnswers.
+   */
+  data: Prisma.XOR<Prisma.AttemptAnswerUpdateManyMutationInput, Prisma.AttemptAnswerUncheckedUpdateManyInput>
+  /**
+   * Filter which AttemptAnswers to update
+   */
+  where?: Prisma.AttemptAnswerWhereInput
+  /**
+   * Limit how many AttemptAnswers to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttemptAnswerIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
