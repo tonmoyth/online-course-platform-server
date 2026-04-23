@@ -138,7 +138,7 @@ const getStudentStats = async (studentId: string) => {
 
 const getDashboardStats = async (user: any) => {
     const { id: userId, role } = user;
-    console.log(role, "stats");
+
 
     if (role === "ADMIN" || role === "SUPER ADMIN") {
         return await getAdminStats();

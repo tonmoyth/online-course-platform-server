@@ -58,6 +58,12 @@ const getEnrolledCourses = async (studentId: string) => {
                         select: {
                             id: true,
                             name: true,
+                            image: true,
+                        },
+                    },
+                    quizzes: {
+                        select: {
+                            id: true,
                         },
                     },
                 },

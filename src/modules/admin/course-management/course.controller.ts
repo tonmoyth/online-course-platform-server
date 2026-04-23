@@ -6,6 +6,7 @@ import sendResponse from "../../../shared/sendResponse";
 
 const getAllCourses = catchAsync(async (req: Request, res: Response) => {
     const result = await AdminCourseService.getAllCourses(req.query);
+    console.log("data", result.data);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

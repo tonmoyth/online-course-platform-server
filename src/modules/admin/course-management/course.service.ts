@@ -6,6 +6,7 @@ import { courseFilterableFields, courseSearchableFields } from "../admin.constan
 import { CourseStatus } from "../../../generated/prisma/client";
 
 const getAllCourses = async (query: Record<string, any>) => {
+
     const courseQuery = new QueryBuilder(
         prisma.course,
         query,
@@ -18,6 +19,9 @@ const getAllCourses = async (query: Record<string, any>) => {
         .filter()
         .paginate()
         .sort()
+        .where({
+            isDeleted: false
+        })
         .include({
             instructor: {
                 select: {

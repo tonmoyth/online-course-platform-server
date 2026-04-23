@@ -6,7 +6,7 @@ import sendResponse from "../../shared/sendResponse";
 
 const getDashboardStats = catchAsync(async (req: Request, res: Response) => {
     const user = req.user;
-    console.log(user, "test");
+
     const result = await StatsService.getDashboardStats(user);
 
     sendResponse(res, {

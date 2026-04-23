@@ -20,6 +20,12 @@ router.get(
 );
 
 router.get(
+    "/drafts",
+    chackAuth("INSTRUCTOR"),
+    CourseController.getMyDraftCourses,
+);
+
+router.get(
     "/:id/students",
     chackAuth("INSTRUCTOR"),
     CourseController.getEnrolledStudents,

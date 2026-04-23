@@ -68,6 +68,19 @@ const getMyCourses = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getMyDraftCourses = catchAsync(async (req: Request, res: Response) => {
+    const instructorId = req.user?.id as string;
+    const result = await CourseService.getMyDraftCourses(instructorId, req.query);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Draft courses retrieved successfully",
+        meta: result.meta,
+        data: result.data,
+    });
+});
+
 const getEnrolledStudents = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
     const instructorId = req.user?.id as string;
@@ -87,5 +100,6 @@ export const CourseController = {
     submitCourse,
     deleteCourse,
     getMyCourses,
+    getMyDraftCourses,
     getEnrolledStudents,
 };

@@ -33,7 +33,7 @@ const rejectUser = catchAsync(async (req: Request, res: Response) => {
 // Role & Permission Management
 const createRole = catchAsync(async (req: Request, res: Response) => {
     const result = await AdminService.createRole(req.body);
-    console.log(req.body)
+
 
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
@@ -105,7 +105,7 @@ const updateUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {
-    console.log("getAllUsers query:", req.query);
+
     const result = await AdminService.getAllUsers(req.query);
 
     sendResponse(res, {

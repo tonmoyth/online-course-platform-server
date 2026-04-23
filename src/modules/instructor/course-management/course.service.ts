@@ -122,6 +122,25 @@ const getMyCourses = async (instructorId: string, query: Record<string, any>) =>
     return result;
 };
 
+const getMyDraftCourses = async (instructorId: string, query: Record<string, any>) => {
+    const courseQuery = new QueryBuilder(prisma.course, query, {
+        searchableFields: ["title", "category"],
+        filterableFields: ["difficulty", "priceType"],
+    })
+        .search()
+        .filter()
+        .paginate()
+        .sort()
+        .where({ 
+            instructorId,
+            status: CourseStatus.DRAFT,
+            isDeleted: false 
+        });
+
+    const result = await courseQuery.execute();
+    return result;
+};
+
 const getEnrolledStudents = async (id: string, instructorId: string) => {
     const course = await prisma.course.findUnique({
         where: { id },
@@ -164,5 +183,6 @@ export const CourseService = {
     submitCourse,
     deleteCourse,
     getMyCourses,
+    getMyDraftCourses,
     getEnrolledStudents,
 };

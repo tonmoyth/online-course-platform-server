@@ -387,7 +387,6 @@ const updateUser = async (userId: string, payload: any) => {
 };
 
 const getAllUsers = async (query: Record<string, any>) => {
-    console.log("queary", query)
     const userQuery = new QueryBuilder(prisma.user, query, {
         searchableFields: userSearchableFields,
         filterableFields: userFilterableFields,

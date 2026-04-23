@@ -197,7 +197,24 @@ const getAttemptResult = async (studentId: string, attemptId: string) => {
         throw new AppError(httpStatus.FORBIDDEN, "You do not have permission to view this attempt result");
     }
 
-    return attempt;
+    const totalQuestions = attempt.quiz.questions.length;
+    const correctAnswers = attempt.answers.filter((a) => a.isCorrect).length;
+
+    return {
+        id: attempt.id,
+        score: attempt.score,
+        passingScore: attempt.quiz.passingScore,
+        passed: attempt.isPassed,
+        totalQuestions,
+        correctAnswers,
+        answers: attempt.answers.map((a) => ({
+            questionId: a.questionId,
+            questionText: a.question.questionText,
+            selectedOption: a.selectedOption,
+            correctOption: a.question.correctOption,
+            isCorrect: a.isCorrect,
+        })),
+    };
 };
 
 const getAttemptHistory = async (studentId: string, quizId: string) => {
